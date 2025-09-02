@@ -202,6 +202,144 @@ public class ArraysBasicQuestions {
         return false;
     }
 
+    //Question 11: Given an array of integers, we need to find the maximum element in the array. The function should print the maximum value found in the array.
+//    Input: nums = [2, 7, 11, 15, 12, 10]
+//    Output: 15
+//    Explanation: The maximum element in the array is 15.
+
+    public static int maximumNumberFromArray(int [] arr){
+        int maximumNumber = Integer.MIN_VALUE;
+
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] > maximumNumber){
+                maximumNumber = arr[i];
+            }
+        }
+
+        return maximumNumber;
+    }
+
+    //Question 12: Given an array of integers, we need to find the minimum element in the array. The function should print the minimum value found in the array.
+    //Example
+    //Input: nums = [3, 7, 11, 2, 1, 10]
+    //Output: 1
+    //Explanation: The minimum element in the array is 1.
+    //
+    //Input: nums = [3, 4, 9, 5, 2, 5, 9, 10]
+    //Output: 2
+    //Explanation: The minimum element in the array is 2.
+
+    public static int minimumNumberFromArray(int [] arr){
+        int minimumNumber = Integer.MAX_VALUE;
+
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] < minimumNumber){
+                minimumNumber = arr[i];
+            }
+        }
+
+        return minimumNumber;
+    }
+
+    //Question 13: Given an array of integers, we need to find the 2nd maximum element in the array. The function should print the 2nd maximum value found in the array. If no such value is found print -1.
+    //Example
+    //Input: nums = [3, 7, 11, 2, 1, 10]
+    //Output: 10
+    //Explanation: The 2nd maximum element in the array is 10
+    //
+    //Input: nums = [3, 4, 1, 5, 2, 5, 1, 10]
+    //Output: 5
+    //Explanation: The 2nd maximum element in the array is 5.
+    public static int secondMaximumNumber(int[] arr){
+        int maximumNumber = 0;
+        int secondMaximumNumber = 0;
+
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] > maximumNumber){
+                secondMaximumNumber = maximumNumber;
+                maximumNumber = arr[i];
+            }else if(arr[i] > secondMaximumNumber && arr[i] < maximumNumber){
+                secondMaximumNumber = arr[i];
+            }
+        }
+
+        if(secondMaximumNumber == Integer.MIN_VALUE){
+            return -1;
+        }else {
+            return secondMaximumNumber;
+        }
+    }
+
+    //Question 14:Given an array of integers, we need to find the 2nd minimum element in the array. The function should print the 2nd minimum value found in the array. If no such value is found print -1.
+    //Example
+    //Input: nums = [3, 7, 11, 2, 1, 10]
+    //Output: 7
+    //Explanation: The 2nd minimum element in the array is 7.
+    //
+    //Input: nums = [3, 4, 1, 5, 2, 5, 1, 10]
+    //Output: 2
+    //Explanation: The 2nd minimum element in the array is 2.
+
+    public static int secondMinimumNumber(int[] arr){
+        int minimumNumber = Integer.MAX_VALUE;
+        int secondMinimumNumber = Integer.MAX_VALUE;
+
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] < minimumNumber){
+                secondMinimumNumber = minimumNumber;
+                minimumNumber = arr[i];
+            }else if(arr[i] < secondMinimumNumber && arr[i] > minimumNumber){
+                secondMinimumNumber = arr[i];
+            }
+        }
+
+        if(secondMinimumNumber == Integer.MAX_VALUE){
+            return -1;
+        }else {
+            return secondMinimumNumber;
+        }
+
+    }
+
+
+    //Question 15: Given an array of N+1 size containing N elements  we need to insert an element val at the Xth position (0-Based Indexing), shifting the existing elements to the right.
+    //Example
+    //Input: nums[7] = [3, 7, 11, 2, 1, 10, _ ], X = 3, val = 5
+    //Output: [3, 7, 11, 5, 2, 1, 10]
+    //Explanation: The element val = 5,  is inserted at 3rd position from the front, and all the other elements are shifted one position to the right.
+    //Input: nums[5] = [10, 20, 30, 40, _ ], X = 1, val = 100
+    //Output: [10, 100, 20, 30, 40]
+    //Explanation: The element val = 100 is inserted at the 1st position, and all other elements are shifted accordingly.
+
+
+    //Shifting approach -> to insert the element in the array
+    public static void insertAtPosition(int[] arr, int x, int n, int value){
+        for(int i = n; i > x; i--){
+            arr[i] = arr[i - 1];
+        }
+
+        arr[x] = value;
+
+        printArray(arr);
+    }
+
+    //Question 16: Given an array of size N, delete the element at the Xth position, shifting the remaining elements to the left. After deletion, the size of the array reduces by one.
+    //Example
+    //Input: nums[6] = [10, 20, 30, 40, 50, 60], X = 2
+    //Output: [10, 20, 40, 50, 60, _ ]
+    //Explanation: The element at index 2 (value = 30) is removed, and all elements to the right are shifted one position to the left.
+    //
+    //Input: nums[5] = [5, 15, 25, 35, 45], X = 4
+    //Output: [5, 15, 25, 35, _ ]
+    //Explanation: The element at index 4 (value = 45) is deleted, no shifting is necessary since it’s the last element.
+
+    public static void deleteAtPosition(int [] arr, int x, int n){
+        for(int i = x; i < n - 1; i++){
+            arr[i] = arr[i + 1];
+        }
+        n--;
+        printArray(arr);
+    }
     public static void printArray(int [] arr){
         for(int i = 0; i < arr.length; i++){
             System.out.print(arr[i] + " ");
@@ -272,8 +410,29 @@ public class ArraysBasicQuestions {
 //
 //        System.out.println("Target is present : then true for not false: " + calculateTargetSum(nums, target));
 
-        int [] nums ={2, 7, 11, 15, 12, 10};
-        int target = 24;
-        System.out.println(tripletSum(nums, target));
+          int [] nums ={2, 7, 11, 15, 12, 10};
+//        int target = 24;
+//        System.out.println(tripletSum(nums, target));
+//
+//        System.out.println("Maximum Number: " + maximumNumberFromArray(nums));
+//        System.out.println("Minimum Number: " + minimumNumberFromArray(nums));
+//        System.out.println("Second Maximum Number: " + secondMaximumNumber(nums));
+//        System.out.println("Second Minimum Number: " + secondMinimumNumber(nums));
+        int n = 7;
+        int arr[] = new int[n + 1];   // size n+1 (extra space)
+
+        // fill initial array
+        arr[0]=1; arr[1]=2; arr[2]=3; arr[3]=4; arr[4]=6; arr[5]=7; arr[6]=8;
+        System.out.println("Initial Array: " );
+        printArray(arr);
+
+
+        int x = 3;     // index (0-based)
+        int value = 5; // value to insert
+        System.out.println("After inserting Array: ");
+        insertAtPosition(arr, x, n, value);
+
+        System.out.println("After deleting at x array: ");
+        deleteAtPosition(arr, x, n);
     }
 }
